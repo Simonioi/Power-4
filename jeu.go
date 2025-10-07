@@ -1,4 +1,4 @@
-package main
+package Power4
 
 import (
 	"fmt"
