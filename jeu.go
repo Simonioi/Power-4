@@ -71,4 +71,5 @@ func main() {
 		// potentiel connerie qui affiche une win
 		game.SwitchPlayer()
 	}
+
 }
