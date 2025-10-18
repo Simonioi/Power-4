@@ -16,6 +16,25 @@
       margin-bottom: 30px;
     }
 
+    .button-row {
+      margin-bottom: 10px;
+    }
+
+    .play-button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 60px;
+    }
+
+    .play-button:hover {
+      background-color: #005fa3;
+    }
+
     table {
       margin: auto;
       border-spacing: 8px;
@@ -39,26 +58,9 @@
       background-color: yellow;
     }
 
-    .play-button {
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .play-button:hover {
-      background-color: #005fa3;
-    }
-
-    .button-row td {
-      padding-bottom: 10px;
-    }
-
     form {
       margin: 0;
+      display: inline-block;
     }
   </style>
 </head>
@@ -66,20 +68,18 @@
   <h1>Puissance 4</h1>
   <p>Joueur courant : {{if .Player}}{{.Player}}{{else}}1{{end}}</p>
 
-  <table>
-    <!-- Ligne de boutons de jeu -->
-    <tr class="button-row">
-      {{range $i := (seq 0 6)}}
-        <td>
-          <form method="POST" action="/play">
-            <input type="hidden" name="col" value="{{$i}}">
-            <button type="submit" class="play-button">▼</button>
-          </form>
-        </td>
-      {{end}}
-    </tr>
+  <!-- Ligne de boutons au-dessus de la grille -->
+  <div class="button-row">
+    {{range $i := (seq 0 6)}}
+      <form method="POST" action="/play">
+        <input type="hidden" name="col" value="{{$i}}">
+        <button type="submit" class="play-button">▼</button>
+      </form>
+    {{end}}
+  </div>
 
-    <!-- Grille du jeu -->
+  <!-- Grille du jeu -->
+  <table>
     {{range .Grille}}
       <tr>
         {{range .}}
