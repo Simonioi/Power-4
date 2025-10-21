@@ -52,24 +52,66 @@ func (g *Game) SwitchPlayer() {
 	g.Player = 3 - g.Player
 }
 
-func main() {
-	game := NewGame()
+// CheckWin vérifie si le joueur actuel a gagné
+func (g *Game) CheckWin() bool {
+	return g.checkHorizontal() || g.checkVertical() || g.checkDiagonal()
+}
 
-	for {
-		game.PrintBoard()
-		fmt.Printf("Joueur %d, entrez une colonne (0-6) : ", game.Player)
-		var col int
-		_, err := fmt.Scan(&col)
-		if err != nil {
-			fmt.Println("Entrée invalide.")
-			continue
+// Vérification horizontale (ligne)
+func (g *Game) checkHorizontal() bool {
+	for row := 0; row < Rows; row++ {
+		for col := 0; col <= Columns-4; col++ {
+			if g.Board[row][col] != 0 &&
+				g.Board[row][col] == g.Board[row][col+1] &&
+				g.Board[row][col] == g.Board[row][col+2] &&
+				g.Board[row][col] == g.Board[row][col+3] {
+				return true
+			}
 		}
-		if !game.Drop(col) {
-			fmt.Println("Coup invalide. Réessayez.")
-			continue
+	}
+	return false
+}
+
+// Vérification verticale (colonne)
+func (g *Game) checkVertical() bool {
+	for row := 0; row <= Rows-4; row++ {
+		for col := 0; col < Columns; col++ {
+			if g.Board[row][col] != 0 &&
+				g.Board[row][col] == g.Board[row+1][col] &&
+				g.Board[row][col] == g.Board[row+2][col] &&
+				g.Board[row][col] == g.Board[row+3][col] {
+				return true
+			}
 		}
-		// potentiel connerie qui affiche une win
-		game.SwitchPlayer()
+	}
+	return false
+}
+
+// Vérification diagonale (montante et descendante)
+func (g *Game) checkDiagonal() bool {
+	// Diagonale descendante (\)
+	for row := 0; row <= Rows-4; row++ {
+		for col := 0; col <= Columns-4; col++ {
+			if g.Board[row][col] != 0 &&
+				g.Board[row][col] == g.Board[row+1][col+1] &&
+				g.Board[row][col] == g.Board[row+2][col+2] &&
+				g.Board[row][col] == g.Board[row+3][col+3] {
+				return true
+			}
+		}
 	}
 
+	// Diagonale montante (/)
+	for row := 3; row < Rows; row++ {
+		for col := 0; col <= Columns-4; col++ {
+			if g.Board[row][col] != 0 &&
+				g.Board[row][col] == g.Board[row-1][col+1] &&
+				g.Board[row][col] == g.Board[row-2][col+2] &&
+				g.Board[row][col] == g.Board[row-3][col+3] {
+				return true
+			}
+		}
+	}
+
+	return false
 }

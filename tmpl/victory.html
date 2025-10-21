@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Victoire</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background:#274156; color:#fff; display:flex; align-items:center; justify-content:center; height:100vh; margin:0 }
+    .box { text-align:center }
+    .btn { margin:8px; padding:10px 18px; background:#28a745; color:#fff; border-radius:8px; text-decoration:none }
+    .menu { background:#0077cc }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Victoire 🎉</h1>
+    <p>Le joueur <strong>{{.Winner}}</strong> a gagné !</p>
+    <div>
+      <a class="btn" href="/newgame">Nouvelle partie</a>
+      <a class="btn menu" href="/">Retour au menu</a>
+    </div>
+  </div>
+</body>
+</html>

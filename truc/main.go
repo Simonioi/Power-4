@@ -40,7 +40,16 @@ func playHandler(w http.ResponseWriter, r *http.Request) {
 		col, err := strconv.Atoi(colStr)
 		if err == nil {
 			mu.Lock()
-			if game.Drop(col) {
+			dropped := game.Drop(col)
+			if dropped {
+				// vérifier victoire pour le joueur qui vient de jouer
+				if game.CheckWin() {
+					winner := game.Player
+					mu.Unlock()
+					data := map[string]interface{}{"Winner": winner}
+					renderTemplate(w, "victory.html", data)
+					return
+				}
 				game.SwitchPlayer()
 			}
 			mu.Unlock()
@@ -80,6 +89,13 @@ func quitHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "goodbye.html", nil)
 }
 
+func newgameHandler(w http.ResponseWriter, r *http.Request) {
+	mu.Lock()
+	game = p4.NewGame()
+	mu.Unlock()
+	http.Redirect(w, r, "/play", http.StatusSeeOther)
+}
+
 func main() {
 	// Parser les templates depuis le dossier tmpl en utilisant un chemin absolu
 	// et en enregistrant une FuncMap pour les helpers utilisés dans les templates
@@ -110,6 +126,7 @@ func main() {
 
 	http.HandleFunc("/", menuHandler)
 	http.HandleFunc("/play", playHandler)
+	http.HandleFunc("/newgame", newgameHandler)
 	http.HandleFunc("/quit", quitHandler)
 
 	log.Println("Serveur démarré sur http://localhost:8080 — appuyez sur CTRL+C pour arrêter")
