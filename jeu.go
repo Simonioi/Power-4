@@ -52,12 +52,10 @@ func (g *Game) SwitchPlayer() {
 	g.Player = 3 - g.Player
 }
 
-// CheckWin vérifie si le joueur actuel a gagné
 func (g *Game) CheckWin() bool {
 	return g.checkHorizontal() || g.checkVertical() || g.checkDiagonal()
 }
 
-// Vérification horizontale (ligne)
 func (g *Game) checkHorizontal() bool {
 	for row := 0; row < Rows; row++ {
 		for col := 0; col <= Columns-4; col++ {
@@ -72,7 +70,6 @@ func (g *Game) checkHorizontal() bool {
 	return false
 }
 
-// Vérification verticale (colonne)
 func (g *Game) checkVertical() bool {
 	for row := 0; row <= Rows-4; row++ {
 		for col := 0; col < Columns; col++ {
@@ -87,9 +84,7 @@ func (g *Game) checkVertical() bool {
 	return false
 }
 
-// Vérification diagonale (montante et descendante)
 func (g *Game) checkDiagonal() bool {
-	// Diagonale descendante (\)
 	for row := 0; row <= Rows-4; row++ {
 		for col := 0; col <= Columns-4; col++ {
 			if g.Board[row][col] != 0 &&
@@ -101,7 +96,6 @@ func (g *Game) checkDiagonal() bool {
 		}
 	}
 
-	// Diagonale montante (/)
 	for row := 3; row < Rows; row++ {
 		for col := 0; col <= Columns-4; col++ {
 			if g.Board[row][col] != 0 &&

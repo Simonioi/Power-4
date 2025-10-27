@@ -98,7 +98,6 @@
   <h1>Puissance 4</h1>
   <p>Joueur : {{if .Player}}{{.Player}}{{else}}1{{end}}</p>
 
-    <!-- Ligne de boutons au-dessus de la grille -->
     <div class="button-row">
       {{range $i := (seq 0 6)}}
         <form method="POST" action="/play">
@@ -108,7 +107,6 @@
       {{end}}
     </div>
 
-    <!-- Grille du jeu -->
     <table>
       {{range .Grille}}
         <tr>

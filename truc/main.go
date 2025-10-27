@@ -28,7 +28,7 @@ func menuHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func playHandler(w http.ResponseWriter, r *http.Request) {
-	// Initialiser le jeu s'il n'existe pas
+
 	mu.Lock()
 	if game == nil {
 		game = p4.NewGame()
@@ -42,7 +42,7 @@ func playHandler(w http.ResponseWriter, r *http.Request) {
 			mu.Lock()
 			dropped := game.Drop(col)
 			if dropped {
-				// vérifier victoire pour le joueur qui vient de jouer
+
 				if game.CheckWin() {
 					winner := game.Player
 					mu.Unlock()
@@ -58,7 +58,6 @@ func playHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Préparer les données pour le template
 	type Cell struct{ Couleur string }
 	mu.Lock()
 	grille := make([][]Cell, p4.Rows)
@@ -97,8 +96,6 @@ func newgameHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// Parser les templates depuis le dossier tmpl en utilisant un chemin absolu
-	// et en enregistrant une FuncMap pour les helpers utilisés dans les templates
 	funcMap := template.FuncMap{
 		"seq": func(start, end int) []int {
 			if end < start {
@@ -117,7 +114,6 @@ func main() {
 	glob := filepath.Join(baseDir, "tmpl", "*.html")
 	tmpl, err = template.New("tmpl").Funcs(funcMap).ParseGlob(glob)
 	if err != nil {
-		// Fallback: essayer chemin relatif simple
 		tmpl, err = template.New("tmpl").Funcs(funcMap).ParseGlob("tmpl/*.html")
 		if err != nil {
 			log.Fatal("Impossible de parser les templates:", err)
