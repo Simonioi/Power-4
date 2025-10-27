@@ -4,13 +4,30 @@
   <meta charset="UTF-8">
   <title>Victoire</title>
   <style>
+    /* background video styles */
+    #bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      object-fit: cover;
+    }
+
     body { font-family: 'Segoe UI', sans-serif; background:#274156; color:#fff; display:flex; align-items:center; justify-content:center; height:100vh; margin:0 }
-    .box { text-align:center }
+    .box { text-align:center; position:relative; z-index:1 }
     .btn { margin:8px; padding:10px 18px; background:#28a745; color:#fff; border-radius:8px; text-decoration:none }
     .menu { background:#0077cc }
   </style>
 </head>
 <body>
+   <video id="bg-video" autoplay muted loop playsinline>
+    <source src="/assets/nyan_cat.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la balise vidéo.
+  </video>
   <div class="box">
     <h1>GG WP</h1>
     <p>Le joueur <strong>{{.Winner}}</strong> a gagné !</p>

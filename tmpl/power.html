@@ -69,11 +69,19 @@
     }
 
     .rouge {
-      background-color: red;
+      background-color: red; 
+      background-image: url('/assets/brbr.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .jaune {
-      background-color: yellow;
+      background-color: rgb(153, 89, 6);
+      background-image: url('/assets/tungtung.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     form {
@@ -83,15 +91,12 @@
   </style>
 </head>
 <body>
-  <!-- Background video: autoplay, muted (required by many browsers to autoplay), loop -->
   <video id="bg-video" autoplay muted loop playsinline>
-    <source src="/assets/radio-video.mp4" type="video/mp4">
-    Votre navigateur ne supporte pas la vidéo.
-  </video>
+    <source src="/assets/radio_video.mp4" type="video/mp4">
 
-  <div class="content">
-    <h1>Puissance 4</h1>
-    <p>Joueur courant : {{if .Player}}{{.Player}}{{else}}1{{end}}</p>
+  </video>
+  <h1>Puissance 4</h1>
+  <p>Joueur : {{if .Player}}{{.Player}}{{else}}1{{end}}</p>
 
     <!-- Ligne de boutons au-dessus de la grille -->
     <div class="button-row">

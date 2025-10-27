@@ -124,15 +124,15 @@ func main() {
 		}
 	}
 
-	http.HandleFunc("/assets/radio-video.mp4", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, filepath.Join(baseDir, "radio-video.mp4"))
-	})
+	staticDir := filepath.Join(baseDir, "static")
+	fs := http.FileServer(http.Dir(staticDir))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	http.HandleFunc("/", menuHandler)
 	http.HandleFunc("/play", playHandler)
 	http.HandleFunc("/newgame", newgameHandler)
 	http.HandleFunc("/quit", quitHandler)
 
-	log.Println("Serveur démarré sur http://localhost:8080 — appuyez sur CTRL+C pour arrêter")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Println("Serveur démarré sur http://localhost:8081 — appuyez sur CTRL+C pour arrêter")
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
