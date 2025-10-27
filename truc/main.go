@@ -124,6 +124,10 @@ func main() {
 		}
 	}
 
+	http.HandleFunc("/assets/radio-video.mp4", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, filepath.Join(baseDir, "radio-video.mp4"))
+	})
+
 	http.HandleFunc("/", menuHandler)
 	http.HandleFunc("/play", playHandler)
 	http.HandleFunc("/newgame", newgameHandler)
